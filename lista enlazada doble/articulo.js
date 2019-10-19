@@ -8,14 +8,14 @@ class articulo {
         this._contador = 0;
         this._final;
     }
-    agregar(ubicacion, nombre, precio, cantidad, descripcion, llave) 
+    agregar(llave, nombre, precio, cantidad, descripcion) 
     {   
         if(this._contador <= 20)
             { 
                 let aux = 0;
-                if (ubicacion === '' || ubicacion === (this._contador + 1).toString()) 
+                this._llave = llave;
+                if (llave === '' || llave === (this._contador + 1) || llave > this._contador) 
                 {
-                    this._llave = llave;
                     aux = this._lista;
                     if(this._contador === 0)
                     {
@@ -35,12 +35,15 @@ class articulo {
                     this._llave++;
                     alert('articulo agregado');
                 } 
-                else if (Number(ubicacion) > 0 && Number(ubicacion) < this._contador) 
+                else if (Number(llave) > 0 && Number(llave) <= this._contador) 
                 {
                     aux = this._lista;
                     let auxc = 1;
-                    while(ubicacion > auxc+1)
+                    console.log(llave)
+                    console.log(auxc)
+                    while(llave > auxc+1)
                     {
+                        console.log("hola")
                         aux = aux._siguiente;
                         auxc++;
                     }
@@ -210,13 +213,12 @@ class producto{
 var almacen = new articulo(document.querySelector('#tablaArticulos'), Number(document.querySelector('#codigo').value));
 document.querySelector('#agregar').addEventListener('click', () => {
     let llave = Number(document.querySelector('#codigo').value);
-    let ubicacion = document.querySelector('#ubicacion').value;
     let nombre = document.querySelector('#nombre').value;
     let precio = document.querySelector('#precio').value;
     let cantidad = document.querySelector('#cantidad').value;
     let descripcion = document.querySelector('#descripcion').value;
 
-    almacen.agregar(ubicacion, nombre, precio, cantidad, descripcion, llave);
+    almacen.agregar(llave, nombre, precio, cantidad, descripcion);
     document.querySelector('#codigo').value = almacen.llave;
 });
 document.querySelector('#buscar').addEventListener('click', () => {
